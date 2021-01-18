@@ -1,35 +1,37 @@
 import React from "react";
-import { StyleSheet, Pressable, View, Text } from "react-native";
+import { View, Text, Pressable, StyleSheet } from "react-native";
 
-function StyledButton({ type, content, onPressHandler }) {
-  const BGcolorScheme = type === "primary" ? "#171a20cc" : "#ffffffa6";
-  const Textcolor = type === "primary" ? "#fff" : "#000";
+const StyledButton = (props) => {
+  const { type, content, onPress } = props;
+
+  const backgroundColor = type === "primary" ? "#171A20CC" : "#FFFFFFA6";
+  const textColor = type === "primary" ? "#FFFFFF" : "#171A20";
+
   return (
     <View style={styles.container}>
       <Pressable
-        style={[styles.button, { backgroundColor: BGcolorScheme }]}
-        onPress={onPressHandler}
+        style={[styles.button, { backgroundColor: backgroundColor }]}
+        onPress={() => onPress()}
       >
-        <Text style={[styles.text, { color: Textcolor }]}>{content}</Text>
+        <Text style={[styles.text, { color: textColor }]}>{content}</Text>
       </Pressable>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
-    alignSelf: "stretch",
+    width: "100%",
     padding: 10,
   },
   button: {
-    // backgroundColor: "white",
     height: 40,
     borderRadius: 20,
     justifyContent: "center",
     alignItems: "center",
   },
   text: {
-    fontSize: 14,
+    fontSize: 12,
     fontWeight: "500",
     textTransform: "uppercase",
   },

@@ -1,67 +1,83 @@
 import React from "react";
-import { StyleSheet, ImageBackground, Text, View } from "react-native";
+import {
+  View,
+  Text,
+  ImageBackground,
+  StyleSheet,
+  Dimensions,
+} from "react-native";
+import { Header } from "react-native/Libraries/NewAppScreen";
 import StyledButton from "./StyledButton";
 
-function CarItem({ image, model, subTitleText, specialSubtitleText }) {
+const CarItem = (props) => {
+  const { name, tagline, taglineCTA, image } = props.car;
+
   return (
     <View style={styles.carContainer}>
-      {/* background Image */}
-      <ImageBackground style={styles.image} source={image} />
+      <Header />
+      <ImageBackground source={image} style={styles.image} />
+
       <View style={styles.titles}>
-        <Text style={styles.title}>{model}</Text>
-        <Text style={styles.subTitle}>
-          {subTitleText}{" "}
-          <Text style={styles.subTitleUnderline}>{specialSubtitleText}</Text>
+        <Text style={styles.title}>{name}</Text>
+        <Text style={styles.subtitle}>
+          {tagline} <Text style={styles.subtitleCTA}>{taglineCTA}</Text>
         </Text>
       </View>
-      <View style={styles.buttonContainer}>
+
+      <View style={styles.buttonsContainer}>
         <StyledButton
           type="primary"
-          content="custom order"
-          onPressHandler={() => console.warn("custom primary button pressed")}
+          content={"Custom Order"}
+          onPress={() => {
+            console.warn("Custom Order was pressed");
+          }}
         />
+
         <StyledButton
-          content="Existing Inventory"
-          onPressHandler={() => console.warn("custom secondary button pressed")}
+          type="secondary"
+          content={"Existing Inventory"}
+          onPress={() => {
+            console.warn("Existing Inventory was pressed");
+          }}
         />
       </View>
     </View>
   );
-}
+};
 
+export default CarItem;
 const styles = StyleSheet.create({
   carContainer: {
-    flex: 1,
-    alignSelf: "stretch",
+    width: "100%",
+    height: Dimensions.get("window").height,
   },
   titles: {
-    marginTop: "30%",
+    // marginTop: "5%",
+    width: "100%",
     alignItems: "center",
   },
   title: {
     fontSize: 40,
     fontWeight: "500",
   },
-  subTitle: {
+  subtitleCTA: {
+    textDecorationLine: "underline",
+  },
+  subtitle: {
     fontSize: 16,
     color: "#5c5e62",
   },
-  subTitleUnderline: {
-    textDecorationLine: "underline",
-  },
+
   image: {
-    // flex: 1,
-    // alignSelf: "stretch",
     width: "100%",
     height: "100%",
     resizeMode: "cover",
     position: "absolute",
   },
-  buttonContainer: {
+
+  buttonsContainer: {
     position: "absolute",
-    width: "100%",
     bottom: 50,
+    width: "100%",
   },
 });
-
-export default CarItem;
